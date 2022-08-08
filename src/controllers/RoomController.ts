@@ -71,4 +71,17 @@ export class RoomController {
 
         }
     }
+
+    async list(req: Request, res: Response) {
+        try {
+            const rooms = await roomRepository.find({
+                relations: {
+                    subjects: true,
+                    videos: true,
+                },
+            })
+        } catch (error) {
+            return res.status(500).json({ message: 'Internal Server Error!' })
+        }
+    }
 }
